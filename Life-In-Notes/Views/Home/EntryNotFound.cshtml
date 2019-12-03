@@ -1,0 +1,21 @@
+﻿@model int
+
+@{ 
+    ViewBag.Title = "404 Error";
+}
+
+<div class="alert alert-danger mt-1 mb-1">
+    <h4>404 Not Found Error: </h4>
+    <hr style="background-color: black" />
+    <h5>
+        Entry with ID: @Model
+    </h5>
+    <h5>
+        Cannot be found.
+    </h5>
+    <hr style="background-color: black" />
+</div>
+<a asp-controller="Home" asp-action="Index" class="btn btn-outline-success" style="width:auto">
+    Click Here to return to HOME PAGE
+</a>
+<div id="NotFound"></div>

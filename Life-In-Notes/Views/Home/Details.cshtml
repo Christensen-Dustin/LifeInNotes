@@ -1,0 +1,51 @@
+﻿@model HomeDetailsViewModel
+
+@{
+    ViewBag.Title = "Entry Details";
+}
+
+<h2>@Model.PageTitle</h2>
+
+<div id="EntryDetails">
+    <div class="card m-3">
+        <div class="card-header" style="background-color:lightgray">
+            <h3>@Model.Entry.Name</h3>
+        </div>
+        <div class="card-body">
+            <input type="hidden" />
+            <input type="hidden" />
+            <div class="form-group row">
+                <div class="col-sm-2"><b>Entry ID:</b></div>
+                <div class="col-sm-2">@Model.Entry.Id</div>
+                <div class="col-sm-2"><b>User ID:</b></div>
+                <div class="col-sm-5">@Model.Entry.UserId</div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-2"><b>Entry Type:</b></div>
+                <div class="col-sm-2">@Model.Entry.Type</div>
+                <div class="col-sm-2"><b>Entry Theme:</b></div>
+                <div class="col-sm-2">@Model.Entry.Theme</div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-2"><b>Entry Date:</b></div>
+                <div class="col-sm-2">@Model.Entry.Date</div>
+                <div class="col-sm-2"><b>Reference Date:</b></div>
+                <div class="col-sm-2">@Model.Entry.RefDate</div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-2"><b>Entry Content:</b></div>
+                <div class="col-sm">@Model.Entry.Content</div>
+            </div>
+        </div>
+        <div class="card-footer text-center" style="background-color:lightgray">
+            <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Home</a>
+            <a asp-controller="Home" asp-action="UpdateEntry" asp-route-id="@Model.Entry.Id"
+               class="btn btn-dark">Edit</a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    <script src="~/js/CustomScript.js"></script>
+}
