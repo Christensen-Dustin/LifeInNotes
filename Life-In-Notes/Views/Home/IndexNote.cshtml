@@ -1,23 +1,60 @@
 ﻿@model IEnumerable<Note>
 
 @{
-    ViewBag.Title = "Note List for ";
-
-    string currentId = ViewBag.userId;
+    ViewBag.Title = "Entry Detail Page";
 }
 
-<h2>Note List for @View</h2>
+<h2>Entry Detail Page</h2>
 
 <div id="Index">
+    <div class="card m-3">
+        <div class="card-header" style="background-color:lightgray">
+            <h3>@ViewData["EntryName"]</h3>
+        </div>
+        <div class="card-body">
+            <input type="hidden" />
+            <input type="hidden" />
+            <div class="form-group row">
+                <div class="col-sm-2"><b>Entry ID:</b></div>
+                <div class="col-sm-2">@ViewData["EntryID"]</div>
+                <div class="col-sm-2"><b>User ID:</b></div>
+                <div class="col-sm-5">@ViewData["EntryUserID"]</div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-2"><b>Entry Type:</b></div>
+                <div class="col-sm-2">@ViewData["EntryType"]</div>
+                <div class="col-sm-2"><b>Entry Theme:</b></div>
+                <div class="col-sm-2">@ViewData["EntryTheme"]</div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-2"><b>Entry Date:</b></div>
+                <div class="col-sm-2">@ViewData["EntryDate"]</div>
+                <div class="col-sm-2"><b>Reference Date:</b></div>
+                <div class="col-sm-2">@ViewData["EntryRefer"]</div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-2"><b>Entry Content:</b></div>
+                <div class="col-sm">@ViewData["EntryContent"]</div>
+            </div>
+        </div>
+        <div class="card-footer text-center" style="background-color:lightgray">
+            <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Home</a>
+            <a asp-controller="Home" asp-action="UpdateEntry" asp-route-id="@ViewData["EntryID"]"
+               class="btn btn-dark">Edit</a>
+            <a asp-controller="Home" asp-action="AddNote" asp-route-entryID="@ViewData["EntryID"]"
+               class="btn btn-dark">Add Note</a>
+        </div>
+    </div>
+
     @if (Model.Count() == 0)
     {
         <div class="card-deck">
             <div class="card m-3">
                 <div class="card-header text-center" style="background-color:lightgray">
-                    <h3>No Entry Has Been Made</h3>
+                    <h3>No NOTES are attached to this ENTRY</h3>
                 </div>
                 <div class="card-body text-center">
-                    Click the <b>CREATE</b> button to create an <b>ENTRY</b>
+                    Click the <b>ADD NOTE</b> button to create a <b>NOTE</b> for this <b>ENTRY</b>
                 </div>
                 <div class="card-footer text-center" style="background-color:lightgray">
                     <h3>Thank you</h3>
@@ -27,24 +64,24 @@
     }
 
     <div class="card-deck">
-        @foreach (var entry in Model)
+        @foreach (var note in Model)
         {
             <div class="card m-3" style="min-width:300px; max-width:600px">
                 <input type="hidden" />
                 <input type="hidden" />
                 <div class="card-header" style="background-color:lightgray">
-                    <h3>@entry.Name</h3>
+                    <h3>@note.Id</h3>
                 </div>
                 <div class="card-body">
-                    <div><b>Entry Type:</b> @entry.Type</div>
-                    <div><b>Entry Date:</b> @entry.Date</div>
-                    <div><b>User Id:</b> @entry.UserId</div>
-                    <div class="description">@entry.Content</div>
+                    <div><b>Entry Type:</b> @note.Type</div>
+                    <div><b>Entry Date:</b> @note.Date</div>
+                    <div><b>User Id:</b> @note.EntryId</div>
+                    <div class="description">@note.Content</div>
                 </div>
                 <div class="card-footer text-center" style="background-color:lightgray">
-                    <a asp-controller="Home" asp-action="Details" asp-route-id="@entry.Id"
+                    <a asp-controller="Home" asp-action="Details" asp-route-id="@note.Id"
                        class="btn btn-primary m-1">View</a>
-                    <a asp-controller="Home" asp-action="UpdateEntry" asp-route-id="@entry.Id"
+                    <a asp-controller="Home" asp-action="UpdateEntry" asp-route-id="@note.Id"
                        class="btn btn-dark m-1">Edit</a>
                 </div>
             </div>

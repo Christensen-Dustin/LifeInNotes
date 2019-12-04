@@ -47,13 +47,30 @@ namespace Life_In_Notes.Controllers
         }
 
         // Returns a list of Notes
-        public ViewResult IndexNotes(int entryID)
+        public ViewResult IndexNote(int? id)
         {
-            var rootEntry = _entryRepository.GetEntry(entryID);
+            var rootEntry = _entryRepository.GetEntry(id.Value);
 
+            // Check if entry is NULL
+            if (rootEntry == null)
+            {
+                // Set status to 404
+                Response.StatusCode = 404;
+
+                // Return Custom Error View
+                return View("EntryNotFound", id.Value);
+            }
+
+            ViewData["EntryID"] = rootEntry.Id;
             ViewData["EntryName"] = rootEntry.Name;
+            ViewData["EntryType"] = rootEntry.Type;
+            ViewData["EntryTheme"] = rootEntry.Theme;
+            ViewData["EntryDate"] = rootEntry.Date;
+            ViewData["EntryRefer"] = rootEntry.RefDate;
+            ViewData["EntryContent"] = rootEntry.Content;
+            ViewData["EntryUserID"] = rootEntry.UserId;
 
-            var model = _noteRepository.GetAllNotes(entryID);
+            var model = _noteRepository.GetAllNotes(id.Value);
 
             return View(model);
         }
@@ -71,7 +88,6 @@ namespace Life_In_Notes.Controllers
 
             // Retrieve information to see if ID value exists
             Entry entry = _entryRepository.GetEntry(id.Value);
-            // Note note = _noteRepository.GetAllNotes(entry.Id);
 
             // Check if entry is NULL
             if (entry == null)
