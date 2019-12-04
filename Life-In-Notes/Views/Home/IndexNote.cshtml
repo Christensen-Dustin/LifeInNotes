@@ -70,21 +70,32 @@
                 <input type="hidden" />
                 <input type="hidden" />
                 <div class="card-header" style="background-color:lightgray">
-                    <h3>@note.Id</h3>
+                    <h3>Additional Note</h3>
                 </div>
                 <div class="card-body">
-                    <div><b>Entry Type:</b> @note.Type</div>
-                    <div><b>Entry Date:</b> @note.Date</div>
-                    <div><b>User Id:</b> @note.EntryId</div>
-                    <div class="description">@note.Content</div>
+                    <div class="form-row">
+                        <div class="col-sm-3"><b>Note ID:</b></div> <div class="col-sm-1">@note.Id</div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-sm-3"><b>Note Type:</b></div> <div class="col-sm-3">@note.Type</div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-sm-3"><b>Note Date:</b></div> <div class="col-sm-3"> @note.Date</div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-sm-3"><b>Entry Id:</b></div> <div class="col-sm-3"> @note.EntryId</div>
+                    </div>
+                    <div class="form-row">
+                        <div class="description">@note.Content</div>
+                    </div>
                 </div>
-                <div class="card-footer text-center" style="background-color:lightgray">
-                    <a asp-controller="Home" asp-action="Details" asp-route-id="@note.Id"
-                       class="btn btn-primary m-1">View</a>
-                    <a asp-controller="Home" asp-action="UpdateEntry" asp-route-id="@note.Id"
-                       class="btn btn-dark m-1">Edit</a>
+                    <div class="card-footer text-center" style="background-color:lightgray">
+                        <a asp-controller="Home" asp-action="DetailsNote" asp-route-id="@note.Id"
+                           class="btn btn-primary m-1">View</a>
+                        <a asp-controller="Home" asp-action="UpdateNote" asp-route-id="@note.Id"
+                           class="btn btn-dark m-1">Edit</a>
+                    </div>
                 </div>
-            </div>
         }
     </div>
 </div>

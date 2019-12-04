@@ -203,9 +203,9 @@ namespace Life_In_Notes.Controllers
 
         [HttpGet]
         // Calls the AddNote page
-        public ViewResult AddNote(int id)
+        public ViewResult AddNote(int entryID)
         {
-            Entry rootEntry = _entryRepository.GetEntry(id);
+            Entry rootEntry = _entryRepository.GetEntry(entryID);
 
             // Check if entry is NULL
             if (rootEntry == null)
@@ -214,20 +214,18 @@ namespace Life_In_Notes.Controllers
                 Response.StatusCode = 404;
 
                 // Return Custom Error View
-                return View("EntryNotFound", id);
+                return View("EntryNotFound", entryID);
             }
 
-            ViewData["EntryID"] = rootEntry.Id;
-            ViewData["EntryName"] = rootEntry.Name;
-            ViewData["EntryType"] = rootEntry.Type;
-            ViewData["EntryTheme"] = rootEntry.Theme;
-            ViewData["EntryDate"] = rootEntry.Date;
-            ViewData["EntryRefer"] = rootEntry.RefDate;
-            ViewData["EntryContent"] = rootEntry.Content;
-            ViewData["EntryUserID"] = rootEntry.UserId;
+            AddNoteViewModel addNoteViewModel = new AddNoteViewModel
+            {
+                EntryId = rootEntry.Id
+            };
 
+            ViewData["EntryName"] = rootEntry.Name;
+            
             // Return and generate the AddNote page
-            return View();
+            return View(addNoteViewModel);
         }
 
         [HttpPost]
@@ -258,7 +256,7 @@ namespace Life_In_Notes.Controllers
                 _noteRepository.Add(newNote);
 
                 // after creating new entry redirect to details page
-                return RedirectToAction("IndexNote", new { id = newNote.EntryId });
+                return RedirectToAction("IndexNote", new { id = model.EntryId });
             }
 
             // Return to view if condition not met
@@ -317,6 +315,63 @@ namespace Life_In_Notes.Controllers
 
                 // after creating new entry redirect to details page
                 return RedirectToAction("Index");
+            }
+
+            // Return view is conditions are not met
+            return View();
+        }
+
+        [HttpGet]
+        // Calls the Update page
+        public ViewResult UpdateNote(int id)
+        {
+            // Find the Entry
+            Entry entry = _entryRepository.GetEntry(id);
+            EntryUpdateViewModel entryUpdateViewModel = new EntryUpdateViewModel
+            {
+                Id = entry.Id,
+                Name = entry.Name,
+                Type = entry.Type,
+                Theme = entry.Theme,
+                Date = entry.Date,
+                RefDate = entry.RefDate,
+                Content = entry.Content,
+                UserId = entry.UserId
+            };
+
+            // Return and generate the Update page
+            return View(entryUpdateViewModel);
+        }
+
+        [HttpPost]
+        // Updates an Entry to the repository
+        public IActionResult UpdateNote(NoteUpdateViewModel model)
+        {
+            // checking validation of required areas
+            if (ModelState.IsValid)
+            {
+                // find the ENTRY to be updated via entry repository
+                Note updatedNote = _noteRepository.GetNote(model.Id);
+
+                // update the areas/variables
+                updatedNote.Type = model.Type;
+                updatedNote.Theme = model.Theme;
+                updatedNote.Date = model.Date;
+                updatedNote.RefDate = model.RefDate;
+                updatedNote.Content = model.Content;
+                updatedNote.EntryId = model.EntryId;
+
+                // Check if RefDate is filled
+                if (updatedNote.RefDate == null)
+                {
+                    updatedNote.RefDate = "0000-00-00";
+                }
+
+                // Update the database
+                _noteRepository.Update(updatedNote);
+
+                // after creating new entry redirect to details page
+                return RedirectToAction("IndexNote");
             }
 
             // Return view is conditions are not met
