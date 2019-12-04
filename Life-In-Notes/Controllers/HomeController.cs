@@ -202,6 +202,70 @@ namespace Life_In_Notes.Controllers
         }
 
         [HttpGet]
+        // Calls the AddNote page
+        public ViewResult AddNote(int id)
+        {
+            Entry rootEntry = _entryRepository.GetEntry(id);
+
+            // Check if entry is NULL
+            if (rootEntry == null)
+            {
+                // Set status to 404
+                Response.StatusCode = 404;
+
+                // Return Custom Error View
+                return View("EntryNotFound", id);
+            }
+
+            ViewData["EntryID"] = rootEntry.Id;
+            ViewData["EntryName"] = rootEntry.Name;
+            ViewData["EntryType"] = rootEntry.Type;
+            ViewData["EntryTheme"] = rootEntry.Theme;
+            ViewData["EntryDate"] = rootEntry.Date;
+            ViewData["EntryRefer"] = rootEntry.RefDate;
+            ViewData["EntryContent"] = rootEntry.Content;
+            ViewData["EntryUserID"] = rootEntry.UserId;
+
+            // Return and generate the AddNote page
+            return View();
+        }
+
+        [HttpPost]
+        // Creates a new New Note to the repository
+        public IActionResult AddNote(AddNoteViewModel model)
+        {
+            // checking validation of required areas
+            if (ModelState.IsValid)
+            {
+                // add new entry to the entry repository
+                Note newNote = new Note
+                {
+                    Type = model.Type,
+                    Theme = model.Theme,
+                    Date = model.Date,
+                    RefDate = model.RefDate,
+                    Content = model.Content,
+                    EntryId = model.EntryId
+                };
+
+                // Check if RefDate is filled
+                if (newNote.RefDate == null)
+                {
+                    newNote.RefDate = "0000-00-00";
+                }
+
+                // Add new Entry to the repository
+                _noteRepository.Add(newNote);
+
+                // after creating new entry redirect to details page
+                return RedirectToAction("IndexNote", new { id = newNote.EntryId });
+            }
+
+            // Return to view if condition not met
+            return View();
+        }
+
+        [HttpGet]
         // Calls the Update page
         public ViewResult UpdateEntry(int id)
         {

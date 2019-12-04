@@ -1,0 +1,90 @@
+﻿@model AddNoteViewModel
+
+@inject SignInManager<Account> signInManager;
+
+@{
+    ViewBag.Title = "Add Note to Entry";
+}
+
+<h2>Add Note to @ViewData["EntryName"]</h2>
+
+<form asp-controller="Home" asp-action="AddNote" method="post" class="mt-3">
+    <div>
+      @*<div class="form-group row">
+            <input type="hidden" />
+            <label asp-for="Name" class="col-sm-2 col-form-label">
+                <b>Title of Entry</b>
+            </label>
+            <div class="col-sm-5">
+                <input asp-for="Name" class="form-control" placeholder="Entry Name" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+        </div>*@
+
+        <div class="form-group row">
+            <label asp-for="Date" class="col-sm-2 col-form-label">
+                <b>Date of Entry</b>
+            </label>
+            <div class="col-sm-4">
+                <input type="date" asp-for="Date" class="form-control col-sm-6" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+            <label asp-for="RefDate" class="col-sm-2 col-form-label">
+                <b>Date of Reference</b>
+            </label>
+            <div class="col-sm-4">
+                <input type="date" asp-for="RefDate" class="form-control col-sm-6" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label asp-for="Type" class="col-sm-2 col-form-label">
+                <b>Type of Entry</b>
+            </label>
+            <div class="col-sm-4">
+                <select asp-for="Type" class="custom-select mr-sm-4 col-sm-6"
+                        asp-items="Html.GetEnumSelectList<TType>()">
+                    <option value="">Please Select</option>
+                </select>
+                <div class="col-sm-8">
+                    <span asp-validation-for="Type" class="text-danger"></span>
+                </div>
+            </div>
+            <label asp-for="Theme" class="col-sm-2 col-form-label">
+                <b>Theme of Entry</b>
+            </label>
+            <div class="col-sm-4">
+                <select asp-for="Theme" class="custom-select mr-sm-4 col-sm-6"
+                        asp-items="Html.GetEnumSelectList<Theme>()">
+                    <option value="">Please Select</option>
+                </select>
+                <div class="col-sm-8">
+                    <span asp-validation-for="Theme" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label asp-for="Content" class="col-sm-2 col-form-label">
+                <b>Content</b>
+            </label>
+            <div class="col-sm-10">
+
+                <textarea asp-for="Content" class="form-control"
+                          style="height:150px;overflow:auto" placeholder="Entry Content">
+                    </textarea>
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <div class="form-group row">
+            <div class="col-sm-10">
+                <button type="submit" class="btn btn-primary" style="width:auto">Add Note</button>
+                <a class="btn btn-danger" asp-controller="Home" asp-action="Index">Cancel</a>
+            </div>
+        </div>
+    </div>
+</form>
+<div id="Entry"></div>
