@@ -329,8 +329,10 @@ namespace Life_In_Notes.Controllers
         // Calls the Update page
         public ViewResult UpdateNote(int id)
         {
-            // Find the Entry
+            // Find the Note and Entry
             Note note = _noteRepository.GetNote(id);
+            Entry entry = _entryRepository.GetEntry(note.EntryId);
+
             NoteUpdateViewModel noteUpdateViewModel = new NoteUpdateViewModel
             {
                 Id = note.Id,
@@ -341,6 +343,8 @@ namespace Life_In_Notes.Controllers
                 Content = note.Content,
                 EntryId = note.EntryId
             };
+
+            ViewData["EntryName"] = entry.Name;
 
             // Return and generate the Update page
             return View(noteUpdateViewModel);

@@ -4,7 +4,7 @@
     ViewBag.Title = "Update Existing Note";
 }
 
-<h2>Edit Note</h2>
+<h2>Edit Note to Entry: <i>@ViewData["EntryName"]</i></h2>
 
 <form asp-controller="Home" asp-action="UpdateNote" method="post" class="mt-3">
     <input hidden asp-for="Id" />
