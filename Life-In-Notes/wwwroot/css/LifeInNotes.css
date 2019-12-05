@@ -71,6 +71,15 @@ hr {
     height: 1000px;
 }
 
+#IndexNotes {
+    background-image: url("../images/NoteJournal.jpg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    height: 1000px;
+}
+
 #Entry {
     background-image: url("../images/JournalPages.jpg");
     background-repeat: no-repeat;
@@ -86,6 +95,15 @@ hr {
 
 #EntryDetails {
     background-image: url("../images/JournalPages.jpg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    height: 1000px;
+}
+
+#Create {
+    background-image: url("../images/CreativeJournal.jpg");
     background-size: 100%;
     background-repeat: no-repeat;
     background-attachment: fixed;

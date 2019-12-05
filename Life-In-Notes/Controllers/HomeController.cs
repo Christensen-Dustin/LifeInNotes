@@ -127,6 +127,10 @@ namespace Life_In_Notes.Controllers
             // Retrieve information to see if ID value exists
             Note note = _noteRepository.GetNote(id.Value);
 
+            Entry entry = _entryRepository.GetEntry(note.EntryId);
+
+            ViewData["EntryName"] = entry.Name;
+
             // Check if entry is NULL
             if (note == null)
             {
@@ -326,21 +330,20 @@ namespace Life_In_Notes.Controllers
         public ViewResult UpdateNote(int id)
         {
             // Find the Entry
-            Entry entry = _entryRepository.GetEntry(id);
-            EntryUpdateViewModel entryUpdateViewModel = new EntryUpdateViewModel
+            Note note = _noteRepository.GetNote(id);
+            NoteUpdateViewModel noteUpdateViewModel = new NoteUpdateViewModel
             {
-                Id = entry.Id,
-                Name = entry.Name,
-                Type = entry.Type,
-                Theme = entry.Theme,
-                Date = entry.Date,
-                RefDate = entry.RefDate,
-                Content = entry.Content,
-                UserId = entry.UserId
+                Id = note.Id,
+                Type = note.Type,
+                Theme = note.Theme,
+                Date = note.Date,
+                RefDate = note.RefDate,
+                Content = note.Content,
+                EntryId = note.EntryId
             };
 
             // Return and generate the Update page
-            return View(entryUpdateViewModel);
+            return View(noteUpdateViewModel);
         }
 
         [HttpPost]
@@ -371,7 +374,7 @@ namespace Life_In_Notes.Controllers
                 _noteRepository.Update(updatedNote);
 
                 // after creating new entry redirect to details page
-                return RedirectToAction("IndexNote");
+                return RedirectToAction("IndexNote", new { id = model.EntryId });
             }
 
             // Return view is conditions are not met

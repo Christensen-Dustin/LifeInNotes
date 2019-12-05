@@ -1,5 +1,54 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model NoteDetailsViewModel
+
 @{
+    ViewBag.Title = "Note Details";
 }
+
+<h2>@Model.PageTitle</h2>
+
+<div id="EntryDetails">
+    <div class="card m-3">
+        <div class="card-header" style="background-color:lightgray">
+            <h3>Notes for Entry: <i>@ViewData["EntryName"]</i></h3>
+        </div>
+        <div class="card-body">
+            <input type="hidden" />
+            <input type="hidden" />
+            <div class="form-group row">
+                <div class="col-sm-2"><b>Note ID:</b></div>
+                <div class="col-sm-2">@Model.Note.Id</div>
+                <div class="col-sm-2"><b>User ID:</b></div>
+                <div class="col-sm-5">@Model.Note.EntryId</div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-2"><b>Note Type:</b></div>
+                <div class="col-sm-2">@Model.Note.Type</div>
+                <div class="col-sm-2"><b>Note Theme:</b></div>
+                <div class="col-sm-2">@Model.Note.Theme</div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-2"><b>Notes Date:</b></div>
+                <div class="col-sm-2">@Model.Note.Date</div>
+                <div class="col-sm-2"><b>Reference Date:</b></div>
+                <div class="col-sm-2">@Model.Note.RefDate</div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-2"><b>Note Content:</b></div>
+                <div class="col-sm">@Model.Note.Content</div>
+            </div>
+        </div>
+        <div class="card-footer text-center" style="background-color:lightgray">
+            <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Home</a>
+            <a asp-controller="Home" asp-action="UpdateNote" asp-route-id="@Model.Note.Id"
+               class="btn btn-dark">Edit</a>
+            <a asp-controller="Home" asp-action="IndexNote" asp-route-id="@Model.Note.EntryId"
+               class="btn btn-dark">Notes</a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    <script src="~/js/CustomScript.js"></script>
+}
+

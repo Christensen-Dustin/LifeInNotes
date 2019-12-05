@@ -4,7 +4,7 @@
     ViewBag.Title = "Update Existing Note";
 }
 
-<h2>Edit Entry</h2>
+<h2>Edit Note</h2>
 
 <form asp-controller="Home" asp-action="UpdateNote" method="post" class="mt-3">
     <input hidden asp-for="Id" />
@@ -71,9 +71,10 @@
         <div class="form-group row">
             <div class="col-sm-10">
                 <button type="submit" class="btn btn-primary" style="width:auto">Update</button>
-                <a class="btn btn-danger" asp-controller="Home" asp-action="IndexNote">Cancel</a>
+                <a class="btn btn-danger" asp-controller="Home" asp-action="IndexNote"
+                   asp-route-id="@Model.EntryId">Cancel</a>
             </div>
         </div>
     </div>
 </form>
-<div id="Index"></div>
+<div id="Entry"></div>
