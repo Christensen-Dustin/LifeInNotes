@@ -70,7 +70,7 @@ namespace Life_In_Notes.Controllers
             ViewData["EntryContent"] = rootEntry.Content;
             ViewData["EntryUserID"] = rootEntry.UserId;
 
-            var model = _noteRepository.GetAllNotes(id.Value);
+            var model = _noteRepository.GetAllNotes(id.Value, rootEntry.UserId);
 
             return View(model);
         }
@@ -247,7 +247,8 @@ namespace Life_In_Notes.Controllers
                     Date = model.Date,
                     RefDate = model.RefDate,
                     Content = model.Content,
-                    EntryId = model.EntryId
+                    EntryId = model.EntryId,
+                    UserId = currentUser.GetUserId(HttpContext.User)
                 };
 
                 // Check if RefDate is filled

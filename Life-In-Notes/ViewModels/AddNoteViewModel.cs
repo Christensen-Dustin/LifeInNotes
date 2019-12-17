@@ -33,5 +33,8 @@ namespace Life_In_Notes.ViewModels
 
         // Represents the EntryId related to the entry
         public int EntryId { get; set; }
+
+        // Represents the UserId related to the user
+        public string UserId { get; set; }
     }
 }

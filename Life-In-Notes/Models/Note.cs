@@ -32,5 +32,8 @@ namespace Life_In_Notes.Models
 
         // Represents the EntryId related to the entry
         public int EntryId { get; set; }
+
+        // Represents the UserID related to the entry
+        public string UserId { get; set; }
     }
 }

@@ -49,10 +49,10 @@ namespace Life_In_Notes.Models
         }
 
         // All Notes
-        public IEnumerable<Note> GetAllNotes(int entryId)
+        public IEnumerable<Note> GetAllNotes(int entryId, string userId)
         {
             // Return all Notes
-            return context.Notes.Where(n => n.EntryId == entryId);
+            return context.Notes.Where(n => n.EntryId == entryId).Where(n => n.UserId == userId);
         }
 
         // Retrieves a specified Note

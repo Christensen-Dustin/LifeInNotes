@@ -11,7 +11,7 @@ namespace Life_In_Notes.Models
         Note GetNote(int id);
 
         // Retrieves all Notes in the database pertaining to an entry
-        IEnumerable<Note> GetAllNotes(int entryId);
+        IEnumerable<Note> GetAllNotes(int entryId, string userId);
 
         // Create and add a New Note
         Note Add(Note note);
